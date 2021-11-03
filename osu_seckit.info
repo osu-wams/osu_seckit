@@ -1,0 +1,4 @@
+name = OSU Seckit
+description = OSU Security Kit Configurations.
+core = 7.x
+dependencies[] = seckit
