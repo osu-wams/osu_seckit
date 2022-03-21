@@ -15,7 +15,7 @@ function osu_seckit_install($is_syncing) {
 
   $osu_seckit_ssl = $osu_seckit->get('seckit_ssl');
   $osu_seckit_ssl['hsts'] = TRUE;
-  $osu_seckit_ssl['hsts_max_age'] = 86400;
+  $osu_seckit_ssl['hsts_max_age'] = 10368000;
 
   $osu_seckit->set('seckit_ssl', $osu_seckit_ssl);
   $osu_seckit->save(TRUE);
