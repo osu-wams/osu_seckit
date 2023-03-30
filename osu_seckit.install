@@ -21,7 +21,7 @@ function osu_seckit_install() {
 /**
  * Update seckit to include the 'blob:' config.
  */
-function osu_seckit_update_N(&$sandbox) {
+function osu_seckit_update_7001(&$sandbox) {
   $osu_seckit_xss = variable_get('seckit_xss');
   $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
   variable_set('seckit_xss', $osu_seckit_xss);
