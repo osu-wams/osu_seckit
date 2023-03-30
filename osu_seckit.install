@@ -9,7 +9,7 @@ function osu_seckit_install($is_syncing) {
   $osu_seckit_xss = $osu_seckit->get('seckit_xss');
   $osu_seckit_xss['csp']['checkbox'] = TRUE;
   $osu_seckit_xss['csp']['upgrade-req'] = TRUE;
-  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: *";
+  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
 
   $osu_seckit->set('seckit_xss', $osu_seckit_xss);
 
@@ -21,3 +21,12 @@ function osu_seckit_install($is_syncing) {
   $osu_seckit->save(TRUE);
 }
 
+/**
+ * Update the csp to include 'blob:'
+ */
+function osu_seckit_update_9001(&$sandbox) {
+  $osu_seckit = \Drupal::configFactory()->getEditable('seckit.settings');
+  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
+  $osu_seckit->set('seckit_xss', $osu_seckit_xss);
+  $osu_seckit->save(TRUE);
+}
