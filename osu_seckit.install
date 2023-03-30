@@ -7,7 +7,7 @@ function osu_seckit_install() {
   $osu_seckit_xss = variable_get('seckit_xss');
   $osu_seckit_xss['csp']['checkbox'] = 1;
   $osu_seckit_xss['csp']['upgrade-req'] = 1;
-  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: *";
+  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
   $osu_seckit_ssl = variable_get('seckit_ssl');
   $osu_seckit_ssl["hsts"] = 1;
   $osu_seckit_ssl["hsts_max_age"] = 10368000;
@@ -16,4 +16,14 @@ function osu_seckit_install() {
   variable_set('seckit_ssl', $osu_seckit_ssl);
   variable_set('seckit_advanced', array('unlimited_csp_reports' => 0));
   cache_clear_all();
+}
+
+/**
+ * Update seckit to include the 'blob:' config.
+ */
+function osu_seckit_update_N(&$sandbox) {
+  $osu_seckit_xss = variable_get('seckit_xss');
+  $osu_seckit_xss['csp']['default-src'] = "'self' 'unsafe-inline' 'unsafe-eval' data: blob: *";
+  variable_set('seckit_xss', $osu_seckit_xss);
+  return t('Update csp to include blob:');
 }
